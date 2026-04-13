@@ -11,24 +11,7 @@ import { Package, RotateCcw } from 'lucide-react';
 import { format } from 'date-fns';
 import { toast } from 'sonner';
 
-interface OrderItem {
-  id: string;
-  product_id: string;
-  product_name: string;
-  product_image: string | null;
-  price: number;
-  quantity: number;
-}
-
-interface Order {
-  id: string;
-  status: string;
-  total_amount: number;
-  created_at: string;
-  order_items: OrderItem[];
-}
-
-const statusColors: Record<string, string> = {
+const statusColors = {
   processing: 'bg-amber-100 text-amber-800',
   shipped: 'bg-blue-100 text-blue-800',
   delivered: 'bg-green-100 text-green-800',
@@ -38,7 +21,7 @@ const statusColors: Record<string, string> = {
 const OrderHistory = () => {
   const { user } = useAuth();
   const { addToCart } = useCart();
-  const [orders, setOrders] = useState<Order[]>([]);
+  const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -49,13 +32,13 @@ const OrderHistory = () => {
         .select('*, order_items(*)')
         .eq('user_id', user.id)
         .order('created_at', { ascending: false });
-      setOrders((data as Order[]) || []);
+      setOrders(data || []);
       setLoading(false);
     };
     fetch();
   }, [user]);
 
-  const handleReorder = (item: OrderItem) => {
+  const handleReorder = (item) => {
     const product = products.find(p => p.id === item.product_id);
     if (product) {
       addToCart(product);
