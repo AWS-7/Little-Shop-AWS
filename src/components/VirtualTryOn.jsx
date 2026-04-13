@@ -14,6 +14,17 @@ const VirtualTryOn = ({ product, isOpen, onClose }) => {
 
   if (!isOpen) return null;
 
+  // Check if try-on is enabled for this product
+  const isTryOnEnabled = product.is_tryon_enabled || product.isJewelry;
+  
+  // Get the jewelry image URL - prioritize transparent PNG for better overlay
+  const getJewelryImageUrl = () => {
+    // Priority: transparent_png_url (from DB) > overlayImage (legacy) > product.image
+    return product.transparent_png_url || product.overlayImage || product.overlay_image || product.image;
+  };
+
+  const jewelryImageUrl = getJewelryImageUrl();
+
   const handleFileUpload = (e) => {
     const file = e.target.files?.[0];
     if (file) {
@@ -145,7 +156,7 @@ const VirtualTryOn = ({ product, isOpen, onClose }) => {
                   draggable={false}
                 />
 
-                {/* Overlay Jewelry */}
+                {/* Overlay Jewelry with Transparent PNG */}
                 <div
                   className="absolute cursor-move"
                   style={{
@@ -156,11 +167,22 @@ const VirtualTryOn = ({ product, isOpen, onClose }) => {
                   onMouseDown={handleJewelryMouseDown}
                 >
                   <img
-                    src={product.overlayImage || product.image}
+                    src={jewelryImageUrl}
                     alt={product.name}
                     className="w-32 h-32 object-contain drop-shadow-lg"
+                    style={{
+                      // Ensure transparent PNG displays correctly
+                      mixBlendMode: product.transparent_png_url ? 'normal' : 'multiply',
+                    }}
                     draggable={false}
                   />
+                  
+                  {/* Debug indicator for transparent PNG */}
+                  {product.transparent_png_url && (
+                    <div className="absolute -top-2 -right-2 bg-primary text-white text-[10px] px-1.5 py-0.5 rounded-full">
+                      HD
+                    </div>
+                  )}
                 </div>
 
                 {/* Instructions overlay */}
@@ -223,8 +245,17 @@ const VirtualTryOn = ({ product, isOpen, onClose }) => {
 
               {/* Product Info */}
               <div className="mt-4 p-4 bg-secondary/50 rounded-lg">
-                <p className="text-sm font-medium text-foreground">{product.name}</p>
-                <p className="text-sm text-primary">₹{product.price.toLocaleString('en-IN')}</p>
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm font-medium text-foreground">{product.name}</p>
+                    <p className="text-sm text-primary">₹{product.price.toLocaleString('en-IN')}</p>
+                  </div>
+                  {product.transparent_png_url && (
+                    <span className="text-[10px] text-muted-foreground bg-secondary px-2 py-1 rounded">
+                      Premium Overlay
+                    </span>
+                  )}
+                </div>
               </div>
             </div>
           )}
