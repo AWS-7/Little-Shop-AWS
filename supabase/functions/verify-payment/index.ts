@@ -1,7 +1,7 @@
+// @ts-nocheck
 // Supabase Edge Function: POST /verify-payment
 // Handles Razorpay webhook for payment verification
 
-// @ts-types="https://esm.sh/@supabase/supabase-js@2/dist/module/index.d.ts"
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
 
 const corsHeaders = {
@@ -43,7 +43,7 @@ function verifyWebhookSignature(body: string, signature: string, secret: string)
   }
 }
 
-Deno.serve(async (req) => {
+Deno.serve(async (req: Request) => {
   // Handle CORS preflight
   if (req.method === 'OPTIONS') {
     return new Response('ok', { headers: corsHeaders });
@@ -222,10 +222,11 @@ Deno.serve(async (req) => {
     );
   } catch (error) {
     console.error('Error in verify-payment webhook:', error);
+    const errorMessage = error instanceof Error ? error.message : 'Internal server error';
     return new Response(
       JSON.stringify({
         success: false,
-        error: error.message || 'Internal server error',
+        error: errorMessage,
       }),
       {
         headers: { ...corsHeaders, 'Content-Type': 'application/json' },

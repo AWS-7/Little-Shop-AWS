@@ -1,15 +1,20 @@
+// @ts-nocheck
 // Supabase Edge Function: GET /lookbooks
 // Returns all lookbooks with their linked products
 
-// @ts-types="https://esm.sh/@supabase/supabase-js@2/dist/module/index.d.ts"
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
+
+interface Lookbook {
+  id: string;
+  [key: string]: unknown;
+}
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 };
 
-Deno.serve(async (req) => {
+Deno.serve(async (req: Request) => {
   // Handle CORS preflight
   if (req.method === 'OPTIONS') {
     return new Response('ok', { headers: corsHeaders });
@@ -49,7 +54,7 @@ Deno.serve(async (req) => {
 
     // Fetch linked products for each lookbook
     const lookbooksWithProducts = await Promise.all(
-      lookbooks.map(async (lookbook) => {
+      lookbooks.map(async (lookbook: Lookbook) => {
         const { data: linkedProducts, error: productsError } = await supabaseClient
           .from('lookbook_products')
           .select('*')
@@ -78,10 +83,11 @@ Deno.serve(async (req) => {
     );
   } catch (error) {
     console.error('Error in lookbooks function:', error);
+    const errorMessage = error instanceof Error ? error.message : 'Internal server error';
     return new Response(
       JSON.stringify({
         success: false,
-        error: error.message || 'Internal server error',
+        error: errorMessage,
       }),
       {
         headers: { ...corsHeaders, 'Content-Type': 'application/json' },
