@@ -1,7 +1,6 @@
 {
   "compilerOptions": {
     "allowJs": true,
-    "allowImportingTsExtensions": true,
     "checkJs": false,
     "isolatedModules": true,
     "jsx": "react-jsx",
