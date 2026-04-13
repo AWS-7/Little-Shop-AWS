@@ -7,13 +7,16 @@ import ProductCard from '@/components/ProductCard';
 import WhatsAppButton from '@/components/WhatsAppButton';
 import Footer from '@/components/Footer';
 import BottomNav from '@/components/BottomNav';
-import { getProductsByCategory, categories } from '@/data/products';
+import OccasionFilter from '@/components/OccasionFilter';
+import SocialProof from '@/components/SocialProof';
+import { getProductsByOccasionAndCategory, categories } from '@/data/products';
 
 const Products = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
+  const [activeOccasion, setActiveOccasion] = useState('all');
   const activeCategory = searchParams.get('category') || 'all';
-  const filtered = getProductsByCategory(activeCategory);
+  const filtered = getProductsByOccasionAndCategory(activeOccasion, activeCategory);
 
   return (
     <div className="min-h-screen bg-background pb-bottom-nav">
@@ -27,7 +30,16 @@ const Products = () => {
           <p className="text-sm text-muted-foreground">Discover handpicked pieces for every occasion</p>
         </div>
 
-        {/* Filters */}
+        {/* Occasion Filter */}
+        <div className="mb-6">
+          <OccasionFilter 
+            activeOccasion={activeOccasion} 
+            onOccasionChange={setActiveOccasion}
+            className="justify-center"
+          />
+        </div>
+
+        {/* Category Filters */}
         <div className="flex flex-wrap justify-center gap-2 mb-8">
           {categories.map(cat => (
             <button key={cat.id}
@@ -52,6 +64,7 @@ const Products = () => {
       <Footer />
       <WhatsAppButton />
       <BottomNav />
+      <SocialProof />
     </div>
   );
 };

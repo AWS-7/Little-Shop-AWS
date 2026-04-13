@@ -12,6 +12,8 @@ import BottomNav from '@/components/BottomNav';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 import { ArrowRight } from 'lucide-react';
 import CategoryStories from '@/components/CategoryStories';
+import Lookbook from '@/components/Lookbook';
+import SocialProof from '@/components/SocialProof';
 
 const Index = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -26,6 +28,9 @@ const Index = () => {
 
       <HeroSlider />
       <CategoryStories />
+      
+      {/* Shop the Look - Lookbook Section */}
+      <Lookbook />
 
       {/* Category Highlights */}
       <section className="py-12 md:py-16">
@@ -68,6 +73,7 @@ const Index = () => {
       <Footer />
       <WhatsAppButton />
       <BottomNav />
+      <SocialProof />
     </div>
   );
 };

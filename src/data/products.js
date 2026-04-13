@@ -5,6 +5,14 @@ import jewelry1 from '@/assets/product-jewelry-1.jpg';
 import jewelry2 from '@/assets/product-jewelry-2.jpg';
 import bag1 from '@/assets/product-bag-1.jpg';
 
+export const occasions = [
+  { id: 'all', label: 'All Occasions' },
+  { id: 'wedding', label: 'Wedding' },
+  { id: 'party', label: 'Party Wear' },
+  { id: 'daily', label: 'Daily Wear' },
+  { id: 'office', label: 'Office Wear' },
+];
+
 export const products = [
   {
     id: 'kanj-burgundy-001',
@@ -15,12 +23,16 @@ export const products = [
     originalPrice: 35000,
     category: 'kanjivaram',
     categoryLabel: 'Kanjivaram Silk',
+    occasion: 'wedding',
     badge: 'Bestseller',
     image: saree1,
     images: [saree1, saree1],
+    videoUrl: '/videos/saree-burgundy-drape.mp4',
     inStock: true,
+    stock: 12,
     rating: 4.9,
     reviews: 124,
+    lookbookLookId: 'look-001',
   },
   {
     id: 'ban-blue-002',
@@ -30,12 +42,16 @@ export const products = [
     price: 32000,
     category: 'banarasi',
     categoryLabel: 'Banarasi Silk',
+    occasion: 'wedding',
     badge: 'New Arrival',
     image: saree2,
     images: [saree2, saree2],
+    videoUrl: '/videos/saree-blue-drape.mp4',
     inStock: true,
+    stock: 3,
     rating: 4.8,
     reviews: 89,
+    lookbookLookId: 'look-002',
   },
   {
     id: 'kanj-green-003',
@@ -46,12 +62,16 @@ export const products = [
     originalPrice: 30000,
     category: 'kanjivaram',
     categoryLabel: 'Kanjivaram Silk',
+    occasion: 'party',
     badge: 'Limited Edition',
     image: saree3,
     images: [saree3, saree3],
+    videoUrl: '/videos/saree-green-drape.mp4',
     inStock: true,
+    stock: 2,
     rating: 4.7,
     reviews: 67,
+    lookbookLookId: 'look-003',
   },
   {
     id: 'jewel-necklace-004',
@@ -62,12 +82,17 @@ export const products = [
     originalPrice: 19000,
     category: 'jewellery',
     categoryLabel: 'Temple Jewellery',
+    occasion: 'wedding',
     badge: 'Trending',
     image: jewelry1,
     images: [jewelry1, jewelry1],
     inStock: true,
+    stock: 8,
     rating: 4.9,
     reviews: 203,
+    isJewelry: true,
+    overlayImage: '/images/jewelry-necklace-overlay.png',
+    lookbookLookId: 'look-001',
   },
   {
     id: 'jewel-jhumka-005',
@@ -77,11 +102,16 @@ export const products = [
     price: 8500,
     category: 'jewellery',
     categoryLabel: 'Temple Jewellery',
+    occasion: 'party',
     image: jewelry2,
     images: [jewelry2, jewelry2],
     inStock: true,
+    stock: 15,
     rating: 4.8,
     reviews: 156,
+    isJewelry: true,
+    overlayImage: '/images/jewelry-jhumka-overlay.png',
+    lookbookLookId: 'look-003',
   },
   {
     id: 'bag-clutch-006',
@@ -92,12 +122,43 @@ export const products = [
     originalPrice: 5500,
     category: 'bags',
     categoryLabel: 'Designer Bags',
+    occasion: 'party',
     badge: 'New Arrival',
     image: bag1,
     images: [bag1, bag1],
     inStock: true,
+    stock: 4,
     rating: 4.6,
     reviews: 45,
+    lookbookLookId: 'look-001',
+  },
+];
+
+// Lookbook data - complete outfits with model photos
+export const lookbookLooks = [
+  {
+    id: 'look-001',
+    name: 'Royal Wedding Ensemble',
+    description: 'Complete bridal look featuring our Royal Burgundy Kanjivaram with matching temple jewelry.',
+    modelImage: '/images/lookbook/look-001-model.jpg',
+    products: ['kanj-burgundy-001', 'jewel-necklace-004', 'bag-clutch-006'],
+    occasion: 'wedding',
+  },
+  {
+    id: 'look-002',
+    name: 'Elegant Blue Grace',
+    description: 'A sophisticated blue Banarasi saree perfect for evening receptions.',
+    modelImage: '/images/lookbook/look-002-model.jpg',
+    products: ['ban-blue-002'],
+    occasion: 'wedding',
+  },
+  {
+    id: 'look-003',
+    name: 'Green Goddess',
+    description: 'Vibrant emerald green Kanjivaram paired with pearl jhumkas for festive celebrations.',
+    modelImage: '/images/lookbook/look-003-model.jpg',
+    products: ['kanj-green-003', 'jewel-jhumka-005'],
+    occasion: 'party',
   },
 ];
 
@@ -108,6 +169,26 @@ export const getRelatedProducts = (product) =>
 
 export const getProductsByCategory = (category) =>
   category === 'all' ? products : products.filter(p => p.category === category);
+
+export const getProductsByOccasion = (occasion) =>
+  occasion === 'all' ? products : products.filter(p => p.occasion === occasion);
+
+export const getProductsByOccasionAndCategory = (occasion, category) => {
+  let filtered = products;
+  if (occasion !== 'all') filtered = filtered.filter(p => p.occasion === occasion);
+  if (category !== 'all') filtered = filtered.filter(p => p.category === category);
+  return filtered;
+};
+
+export const getJewelryProducts = () => products.filter(p => p.isJewelry);
+
+export const getLookById = (id) => lookbookLooks.find(l => l.id === id);
+
+export const getLookForProduct = (productId) => {
+  const product = getProductById(productId);
+  if (!product?.lookbookLookId) return null;
+  return getLookById(product.lookbookLookId);
+};
 
 export const categories = [
   { id: 'all', label: 'All Products' },

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -6,51 +6,64 @@
 
 @layer base {
   :root {
-    --background: 40 33% 98%;
-    --foreground: 0 0% 15%;
+    /* Rose Gold, Cream, Emerald Green - Luxury Boutique Theme */
+    --background: 30 25% 97%;
+    --foreground: 330 10% 15%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 0 0% 15%;
+    --card: 30 20% 99%;
+    --card-foreground: 330 10% 15%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 15%;
+    --popover: 30 20% 99%;
+    --popover-foreground: 330 10% 15%;
 
-    --primary: 38 65% 50%;
-    --primary-foreground: 0 0% 100%;
+    /* Rose Gold */
+    --primary: 350 45% 55%;
+    --primary-foreground: 30 25% 97%;
 
-    --secondary: 40 20% 95%;
-    --secondary-foreground: 0 0% 20%;
+    --secondary: 30 20% 94%;
+    --secondary-foreground: 330 10% 20%;
 
-    --muted: 40 15% 94%;
-    --muted-foreground: 0 0% 45%;
+    --muted: 30 15% 92%;
+    --muted-foreground: 330 5% 45%;
 
-    --accent: 338 45% 40%;
-    --accent-foreground: 0 0% 100%;
+    /* Emerald Green */
+    --accent: 150 55% 35%;
+    --accent-foreground: 30 25% 97%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 70% 55%;
+    --destructive-foreground: 30 25% 97%;
 
-    --border: 38 25% 88%;
-    --input: 38 25% 88%;
-    --ring: 38 65% 50%;
+    --border: 30 20% 88%;
+    --input: 30 20% 88%;
+    --ring: 350 45% 55%;
 
     --radius: 0.25rem;
 
-    --gold: 38 65% 50%;
-    --gold-light: 40 60% 70%;
-    --gold-dark: 36 70% 35%;
-    --charcoal: 0 0% 15%;
-    --cream: 40 33% 98%;
-    --burgundy: 338 45% 30%;
+    /* Luxury Color Palette */
+    --rose-gold: 350 45% 55%;
+    --rose-gold-light: 350 40% 70%;
+    --rose-gold-dark: 350 50% 40%;
+    --cream: 30 25% 97%;
+    --cream-dark: 30 15% 92%;
+    --emerald: 150 55% 35%;
+    --emerald-light: 150 45% 50%;
+    --emerald-dark: 150 60% 25%;
+    --charcoal: 330 10% 15%;
+    --champagne: 40 35% 85%;
 
-    --sidebar-background: 0 0% 98%;
-    --sidebar-foreground: 240 5.3% 26.1%;
-    --sidebar-primary: 240 5.9% 10%;
-    --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 240 4.8% 95.9%;
-    --sidebar-accent-foreground: 240 5.9% 10%;
-    --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-background: 30 20% 98%;
+    --sidebar-foreground: 330 10% 20%;
+    --sidebar-primary: 350 45% 55%;
+    --sidebar-primary-foreground: 30 25% 97%;
+    --sidebar-accent: 30 15% 94%;
+    --sidebar-accent-foreground: 330 10% 20%;
+    --sidebar-border: 30 20% 90%;
+    --sidebar-ring: 350 45% 55%;
+
+    /* Inventory Urgency Colors */
+    --urgency-low: 142 60% 45%;
+    --urgency-medium: 38 90% 55%;
+    --urgency-high: 0 80% 55%;
   }
 }
 
@@ -86,33 +99,107 @@
     -webkit-font-smoothing: antialiased;
   }
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 500;
+    letter-spacing: -0.01em;
   }
 }
 
 @layer components {
   .heading-serif {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 500;
+    letter-spacing: -0.01em;
   }
   .body-sans {
     font-family: 'Inter', sans-serif;
   }
+  .text-luxury {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 600;
+  }
 }
 
 @layer utilities {
-  .gold-gradient {
-    background: linear-gradient(135deg, hsl(var(--gold-dark)), hsl(var(--gold)), hsl(var(--gold-light)));
+  /* Rose Gold Gradients */
+  .rose-gold-gradient {
+    background: linear-gradient(135deg, hsl(var(--rose-gold-dark)), hsl(var(--rose-gold)), hsl(var(--rose-gold-light)));
   }
-  .text-gold-gradient {
-    background: linear-gradient(135deg, hsl(var(--gold-dark)), hsl(var(--gold)));
+  .text-rose-gold-gradient {
+    background: linear-gradient(135deg, hsl(var(--rose-gold-dark)), hsl(var(--rose-gold)));
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
   }
-  .gold-border {
-    border-color: hsl(var(--gold) / 0.3);
+  .rose-gold-border {
+    border-color: hsl(var(--rose-gold) / 0.3);
   }
-  .gold-border-strong {
-    border-color: hsl(var(--gold));
+  .rose-gold-border-strong {
+    border-color: hsl(var(--rose-gold));
+  }
+
+  /* Emerald Green Accents */
+  .emerald-gradient {
+    background: linear-gradient(135deg, hsl(var(--emerald-dark)), hsl(var(--emerald)), hsl(var(--emerald-light)));
+  }
+  .text-emerald {
+    color: hsl(var(--emerald));
+  }
+
+  /* Luxury Metallic Shimmer */
+  .metallic-shimmer {
+    position: relative;
+    overflow: hidden;
+  }
+  .metallic-shimmer::after {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%; width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, hsl(var(--rose-gold) / 0.2), transparent);
+    animation: shimmer 3s infinite;
+  }
+  @keyframes shimmer {
+    100% { left: 100%; }
+  }
+
+  /* Inventory Urgency Styles */
+  .urgency-low { color: hsl(var(--urgency-low)); }
+  .urgency-medium { color: hsl(var(--urgency-medium)); }
+  .urgency-high { color: hsl(var(--urgency-high)); }
+  .bg-urgency-low { background-color: hsl(var(--urgency-low)); }
+  .bg-urgency-medium { background-color: hsl(var(--urgency-medium)); }
+  .bg-urgency-high { background-color: hsl(var(--urgency-high)); }
+
+  /* Video Preview Hover */
+  .video-preview-container {
+    position: relative;
+    overflow: hidden;
+  }
+  .video-preview-container video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  .video-preview-container:hover video {
+    opacity: 1;
+  }
+  .video-preview-container:hover img {
+    opacity: 0;
+  }
+
+  /* Legacy Gold Gradients (keep for compatibility) */
+  .gold-gradient {
+    background: linear-gradient(135deg, hsl(var(--rose-gold-dark)), hsl(var(--rose-gold)), hsl(var(--rose-gold-light)));
+  }
+  .text-gold-gradient {
+    background: linear-gradient(135deg, hsl(var(--rose-gold-dark)), hsl(var(--rose-gold)));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
   .shimmer {
     position: relative;
