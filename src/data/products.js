@@ -5,24 +5,7 @@ import jewelry1 from '@/assets/product-jewelry-1.jpg';
 import jewelry2 from '@/assets/product-jewelry-2.jpg';
 import bag1 from '@/assets/product-bag-1.jpg';
 
-export interface Product {
-  id: string;
-  name: string;
-  description: string;
-  longDescription: string;
-  price: number;
-  originalPrice?: number;
-  category: 'kanjivaram' | 'banarasi' | 'jewellery' | 'bags';
-  categoryLabel: string;
-  badge?: string;
-  image: string;
-  images: string[];
-  inStock: boolean;
-  rating: number;
-  reviews: number;
-}
-
-export const products: Product[] = [
+export const products = [
   {
     id: 'kanj-burgundy-001',
     name: 'Royal Burgundy Kanjivaram',
@@ -118,12 +101,12 @@ export const products: Product[] = [
   },
 ];
 
-export const getProductById = (id: string) => products.find(p => p.id === id);
+export const getProductById = (id) => products.find(p => p.id === id);
 
-export const getRelatedProducts = (product: Product) =>
+export const getRelatedProducts = (product) =>
   products.filter(p => p.category === product.category && p.id !== product.id).slice(0, 4);
 
-export const getProductsByCategory = (category: string) =>
+export const getProductsByCategory = (category) =>
   category === 'all' ? products : products.filter(p => p.category === category);
 
 export const categories = [
