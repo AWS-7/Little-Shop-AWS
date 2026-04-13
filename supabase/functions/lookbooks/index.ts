@@ -1,6 +1,7 @@
 // Supabase Edge Function: GET /lookbooks
 // Returns all lookbooks with their linked products
 
+// @ts-types="https://esm.sh/@supabase/supabase-js@2/dist/module/index.d.ts"
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
 
 const corsHeaders = {
