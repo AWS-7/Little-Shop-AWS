@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Little Shop - Luxury Boutique</title>
+    <script type="text/javascript">
+      // Single Page Apps for GitHub Pages
+      // MIT License
+      // https://github.com/rafgraph/spa-github-pages
+      // This script takes the current URL and converts the path, query string and hash
+      // into a route that HashRouter can handle
+      
+      (function(l) {
+        if (l.search[1] === '/' ) {
+          var decoded = l.search.slice(1).split('&').map(function(s) { 
+            return s.replace(/~and~/g, '&')
+          }).join('?');
+          window.history.replaceState(null, null,
+              l.pathname.slice(0, -1) + decoded + l.hash
+          );
+        }
+      }(window.location))
+    </script>
+    <script type="text/javascript">
+      // Redirect to the hash-based route
+      var pathSegmentsToKeep = 1; // Keep 'Little-Shop-AWS' segment
+      var l = window.location;
+      var pathname = l.pathname;
+      
+      // Extract the path after the repo name
+      var pathAfterRepo = pathname.split('/').slice(pathSegmentsToKeep + 1).join('/');
+      
+      // If there's a path, redirect to hash route
+      if (pathAfterRepo && pathAfterRepo !== '/') {
+        // Redirect to root with hash route
+        var redirectUrl = l.protocol + '//' + l.hostname + 
+          (l.port ? ':' + l.port : '') +
+          pathname.split('/').slice(0, pathSegmentsToKeep + 1).join('/') + '/#' + pathAfterRepo;
+        
+        window.location.replace(redirectUrl);
+      } else {
+        // Just load the root
+        window.location.replace(l.protocol + '//' + l.hostname + 
+          (l.port ? ':' + l.port : '') +
+          pathname.split('/').slice(0, pathSegmentsToKeep + 1).join('/'));
+      }
+    </script>
+  </head>
+  <body>
+    <noscript>
+      <div style="text-align: center; padding: 50px; font-family: system-ui;">
+        <h1>Little Shop - Luxury Boutique</h1>
+        <p>This website requires JavaScript to function properly.</p>
+        <p>Please enable JavaScript in your browser and try again.</p>
+      </div>
+    </noscript>
+  </body>
+</html>
